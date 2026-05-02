@@ -1,0 +1,1063 @@
+/* ============================================================
+   SECTION 1 — CSS VARIABLES
+============================================================ */
+:root {
+  /* Brand Colors */
+  --gold:          #E8B84B;
+  --gold-dim:      rgba(232, 184, 75, 0.14);
+  --gold-border:   rgba(232, 184, 75, 0.28);
+  --gold-glow:     rgba(232, 184, 75, 0.15);
+
+  --teal:          #5DCAA5;
+  --teal-dim:      rgba(93, 202, 165, 0.13);
+  --teal-border:   rgba(93, 202, 165, 0.26);
+
+  --coral:         #F0997B;
+  --coral-dim:     rgba(240, 153, 123, 0.13);
+  --coral-border:  rgba(240, 153, 123, 0.26);
+
+  --blue:          #85B7EB;
+  --blue-dim:      rgba(133, 183, 235, 0.13);
+  --blue-border:   rgba(133, 183, 235, 0.26);
+
+  --purple:        #AFA9EC;
+  --purple-dim:    rgba(127, 119, 221, 0.13);
+  --purple-border: rgba(127, 119, 221, 0.20);
+
+  --pink:          #ED93B1;
+  --pink-dim:      rgba(237, 147, 177, 0.13);
+  --pink-border:   rgba(237, 147, 177, 0.22);
+
+  --amber:         #FAC775;
+  --amber-dim:     rgba(250, 199, 117, 0.13);
+  --amber-border:  rgba(250, 199, 117, 0.22);
+
+  /* Backgrounds */
+  --bg-0: #09090f;
+  --bg-1: #0e0e1a;
+  --bg-2: #131320;
+  --bg-3: #1a1a28;
+  --bg-4: #212132;
+
+  /* Text */
+  --text-1: #ffffff;
+  --text-2: rgba(255,255,255,0.65);
+  --text-3: rgba(255,255,255,0.38);
+  --text-4: rgba(255,255,255,0.22);
+
+  /* Borders */
+  --border:   rgba(255,255,255,0.07);
+  --border-2: rgba(255,255,255,0.11);
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  /* Fonts */
+  --font-body:    'DM Sans', sans-serif;
+  --font-display: 'Bebas Neue', sans-serif;
+
+  /* Transitions — reuse these everywhere */
+  --transition:      all 0.25s ease;
+  --transition-fast: all 0.15s ease;
+  --transition-slow: all 0.4s ease;
+}
+
+
+/* ============================================================
+   SECTION 2 — RESET
+============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol { list-style: none; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-fast);
+}
+
+img, svg { display: block; max-width: 100%; }
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+}
+
+input, select, textarea {
+  font-family: var(--font-body);
+}
+
+
+/* ============================================================
+   SECTION 3 — BASE
+============================================================ */
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-0);
+  color: var(--text-1);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+/* Smooth scrolling across the whole site */
+html { scroll-behavior: smooth; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-1); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-border);
+}
+
+
+/* ============================================================
+   SECTION 4 — KEYFRAME ANIMATIONS
+   Define animation sequences here — use them anywhere
+============================================================ */
+
+/* Fade in from bottom — used on page load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in only — no movement */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slow float up and down — used on poster grid cells */
+@keyframes float {
+  0%   { transform: translateY(0px);  }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px);  }
+}
+
+/* Pulse glow — used on logo mark */
+@keyframes pulseGlow {
+  0%   { box-shadow: 0 0 0px rgba(232,184,75,0); }
+  50%  { box-shadow: 0 0 18px rgba(232,184,75,0.35); }
+  100% { box-shadow: 0 0 0px rgba(232,184,75,0); }
+}
+
+/* Shimmer sweep — used on the main button */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* Shake — used on form error */
+@keyframes shake {
+  0%, 100% { transform: translateX(0);   }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px);  }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(5px);  }
+}
+
+/* Slide in from left — for left panel */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in from right — for right panel / form */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* ============================================================
+   SECTION 5 — AUTH LAYOUT
+   login.php and register.php
+============================================================ */
+.auth-page {
+  overflow: hidden;
+}
+
+.auth-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* LEFT PANEL */
+.auth-left {
+  width: 46%;
+  background: var(--bg-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+
+  /* Slide in from left on page load */
+  animation: slideInLeft 0.6s ease both;
+}
+
+/* Animated radial glow in the background */
+.auth-left::before {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(232,184,75,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Decorative circle top right */
+.auth-left::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(93,202,165,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* RIGHT PANEL */
+.auth-right {
+  width: 54%;
+  background: var(--bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+
+  /* Slide in from right on page load */
+  animation: slideInRight 0.6s ease 0.1s both;
+}
+
+
+/* ============================================================
+   SECTION 6 — LEFT PANEL COMPONENTS
+============================================================ */
+
+/* LOGO */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeInUp 0.5s ease 0.2s both;
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  background: var(--gold);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition);
+
+  /* Pulse glow animation on the logo */
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.logo-mark:hover {
+  transform: rotate(8deg) scale(1.1);
+}
+
+.logo-mark svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--bg-0);
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: 0.05em;
+  color: var(--text-1);
+}
+
+/* POSTER GRID */
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  width: 100%;
+  animation: fadeInUp 0.5s ease 0.3s both;
+}
+
+.pg-cell {
+  height: 68px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+  cursor: default;
+  transition: var(--transition);
+
+  /* Each cell floats at a slightly different speed */
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Stagger the float animation — each cell starts at different time */
+.pg-cell:nth-child(1) { animation-delay: 0.0s; }
+.pg-cell:nth-child(2) { animation-delay: 0.4s; }
+.pg-cell:nth-child(3) { animation-delay: 0.8s; }
+.pg-cell:nth-child(4) { animation-delay: 1.2s; }
+.pg-cell:nth-child(5) { animation-delay: 0.6s; }
+.pg-cell:nth-child(6) { animation-delay: 1.0s; }
+
+.pg-cell:hover {
+  transform: scale(1.06) translateY(-3px);
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* Poster gradient colors */
+.pg-scifi     { background: linear-gradient(135deg, #14102e, #1f1350); }
+.pg-nature    { background: linear-gradient(135deg, #0d1c0e, #102916); }
+.pg-action    { background: linear-gradient(135deg, #200d0d, #341212); }
+.pg-robot     { background: linear-gradient(135deg, #0d1522, #102035); }
+.pg-romance   { background: linear-gradient(135deg, #1c0d1c, #2c1030); }
+.pg-adventure { background: linear-gradient(135deg, #1a1208, #2e1f06); }
+
+/* TAGLINE */
+.brand-tagline {
+  font-size: 12px;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.6;
+  animation: fadeInUp 0.5s ease 0.4s both;
+}
+
+/* GENRE PILLS */
+.genre-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  animation: fadeInUp 0.5s ease 0.5s both;
+}
+
+.pill {
+  font-size: 11px;
+  padding: 4px 11px;
+  border-radius: 20px;
+  border: 1px solid;
+  font-weight: 500;
+  cursor: default;
+  transition: var(--transition);
+}
+
+.pill:hover {
+  transform: translateY(-2px) scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Pill colors */
+.pill-purple { background: var(--purple-dim); color: var(--purple); border-color: var(--purple-border); }
+.pill-coral  { background: var(--coral-dim);  color: var(--coral);  border-color: var(--coral-border);  }
+.pill-teal   { background: var(--teal-dim);   color: var(--teal);   border-color: var(--teal-border);   }
+.pill-pink   { background: var(--pink-dim);   color: var(--pink);   border-color: var(--pink-border);   }
+.pill-blue   { background: var(--blue-dim);   color: var(--blue);   border-color: var(--blue-border);   }
+.pill-amber  { background: var(--amber-dim);  color: var(--amber);  border-color: var(--amber-border);  }
+
+
+/* ============================================================
+   SECTION 7 — FORM BOX
+============================================================ */
+.form-box {
+  width: 100%;
+  max-width: 380px;
+  animation: fadeInUp 0.6s ease 0.2s both;
+}
+
+.form-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+
+.form-sub {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-bottom: 20px;
+}
+
+/* DIVIDER */
+.form-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider-text {
+  font-size: 11px;
+  color: var(--text-4);
+  white-space: nowrap;
+}
+
+/* INPUT GROUP */
+.input-group {
+  margin-bottom: 12px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 5px;
+  transition: var(--transition-fast);
+}
+
+/* Label turns gold when input is focused */
+.input-group:focus-within label {
+  color: var(--gold);
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap input {
+  width: 100%;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 11px 14px 11px 40px;
+  font-size: 13px;
+  color: var(--text-1);
+  outline: none;
+  transition: var(--transition);
+}
+
+.input-wrap input:hover {
+  border-color: var(--border-2);
+  background: var(--bg-4);
+}
+
+.input-wrap input:focus {
+  border-color: var(--gold-border);
+  background: var(--bg-4);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+
+.input-wrap input::placeholder {
+  color: var(--text-4);
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text-3);
+  pointer-events: none;
+  transition: var(--transition-fast);
+}
+
+/* Icon turns gold on focus */
+.input-group:focus-within .input-icon {
+  color: var(--gold);
+}
+
+.input-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Show/hide password toggle */
+.toggle-pw {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  transition: var(--transition-fast);
+}
+
+.toggle-pw:hover {
+  color: var(--gold);
+}
+
+/* EXTRAS ROW */
+.extras-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0 16px;
+}
+
+.remember-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.remember-label:hover {
+  color: var(--text-2);
+}
+
+.remember-label input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+.forgot-link {
+  font-size: 12px;
+  color: var(--text-4);
+  transition: var(--transition-fast);
+}
+
+.forgot-link:hover {
+  color: var(--gold);
+}
+
+/* MAIN BUTTON — gold with shimmer effect on hover */
+.btn-main {
+  width: 100%;
+  padding: 12px;
+  background: var(--gold);
+  color: var(--bg-0);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,184,75,0.35);
+}
+
+.btn-main:active {
+  transform: translateY(0px);
+  box-shadow: none;
+}
+
+/* Shimmer sweep on hover */
+.btn-main::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.25) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-position: -200% center;
+  transition: background-position 0.5s ease;
+}
+
+.btn-main:hover::after {
+  background-position: 200% center;
+}
+
+/* FOOTER LINKS */
+.form-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 16px;
+}
+
+.form-footer a {
+  color: var(--teal);
+  transition: var(--transition-fast);
+}
+
+.form-footer a:hover {
+  color: var(--text-1);
+  text-decoration: underline;
+}
+
+.form-terms {
+  text-align: center;
+  font-size: 10px;
+  color: var(--text-4);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.form-terms a {
+  color: var(--blue);
+  transition: var(--transition-fast);
+}
+
+.form-terms a:hover {
+  color: var(--text-1);
+}
+
+
+/* ============================================================
+   SECTION 8 — SOCIAL BUTTONS
+============================================================ */
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-2);
+  background: rgba(255,255,255,0.04);
+  font-size: 13px;
+  color: var(--text-2);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+}
+
+.social-btn:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.social-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.social-btn svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+/* Specific hover glow per provider */
+.social-btn--google:hover {
+  border-color: rgba(66,133,244,0.35);
+  box-shadow: 0 6px 20px rgba(66,133,244,0.15);
+}
+
+.social-btn--facebook:hover {
+  border-color: rgba(24,119,242,0.35);
+  box-shadow: 0 6px 20px rgba(24,119,242,0.15);
+}
+
+.social-btn--github:hover {
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: 0 6px 20px rgba(255,255,255,0.08);
+}
+
+.social-row {
+  display: flex;
+  gap: 8px;
+}
+
+.social-row .social-btn {
+  flex: 1;
+  font-size: 12px;
+  padding: 9px 10px;
+}
+
+
+/* ============================================================
+   SECTION 9 — ERROR STATE
+   When login fails — shake animation + red border
+============================================================ */
+.input-wrap.error input {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px var(--coral-dim);
+  animation: shake 0.4s ease;
+}
+
+.error-msg {
+  font-size: 11px;
+  color: var(--coral);
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+
+/* ============================================================
+   SECTION 10 — UTILITIES
+============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+}
+/* ============================================================
+   SECTION 11 — RESPONSIVE / MOBILE
+   Breakpoints:
+   768px  → tablets
+   480px  → mobile phones
+============================================================ */
+
+
+/* ── TABLET (768px and below) ── */
+@media (max-width: 768px) {
+
+  /* Stack left and right panels vertically */
+  .auth-wrap {
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Left panel becomes a compact top banner */
+  .auth-left {
+    width: 100%;
+    padding: 24px 20px;
+    gap: 14px;
+    flex-direction: row;         /* logo + pills side by side */
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    min-height: unset;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Hide poster grid and tagline on tablet — save space */
+  .poster-grid,
+  .brand-tagline {
+    display: none;
+  }
+
+  /* Logo stays visible */
+  .brand-logo {
+    animation: none;
+  }
+
+  /* Pills wrap nicely */
+  .genre-pills {
+    justify-content: flex-end;
+    animation: none;
+  }
+
+  /* Right panel takes full remaining height */
+  .auth-right {
+    width: 100%;
+    flex: 1;
+    padding: 32px 24px;
+    align-items: flex-start;
+    padding-top: 36px;
+  }
+
+  /* Form box full width */
+  .form-box {
+    max-width: 100%;
+    animation: fadeInUp 0.4s ease both;
+  }
+}
+
+
+/* ── MOBILE PHONE (480px and below) ── */
+@media (max-width: 480px) {
+
+  /* Left panel — just logo, no pills */
+  .auth-left {
+    padding: 16px 18px;
+    justify-content: center;
+  }
+
+  /* Hide pills on very small screens too */
+  .genre-pills {
+    display: none;
+  }
+
+  /* Right panel full screen feel */
+  .auth-right {
+    padding: 28px 18px;
+    align-items: center;
+  }
+
+  /* Form fills the screen */
+  .form-box {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* Bigger title on mobile */
+  .form-title {
+    font-size: 26px;
+  }
+
+  .form-sub {
+    font-size: 13px;
+    margin-bottom: 22px;
+  }
+
+  /* Inputs bigger touch targets on mobile */
+  .input-wrap input {
+    padding: 13px 14px 13px 42px;
+    font-size: 14px;
+  }
+
+  /* Bigger button — easier to tap */
+  .btn-main {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  /* Social buttons full width and taller */
+  .social-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  /* Facebook + GitHub stack on very small screens */
+  .social-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Labels bigger for readability */
+  .input-group label {
+    font-size: 12px;
+  }
+
+  /* Extras row stacks vertically */
+  .extras-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  /* Footer text bigger */
+  .form-footer {
+    font-size: 13px;
+    margin-top: 20px;
+  }
+
+  .form-terms {
+    font-size: 11px;
+    margin-top: 12px;
+  }
+}
+
+
+/* ── VERY SMALL (360px and below — small Android phones) ── */
+@media (max-width: 360px) {
+
+  .auth-left {
+    padding: 12px 14px;
+  }
+
+  .auth-right {
+    padding: 22px 14px;
+  }
+
+  .form-title {
+    font-size: 22px;
+  }
+
+  .logo-text {
+    font-size: 22px;
+  }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .logo-mark svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+/* ============================================================
+   REGISTER PAGE — Extra Styles
+============================================================ */
+
+/* STEPS on left panel */
+.reg-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  animation: fadeInUp 0.5s ease 0.5s both;
+}
+
+.reg-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: var(--transition);
+}
+
+.reg-step:hover .step-num {
+  background: var(--gold);
+  color: var(--bg-0);
+  transform: scale(1.1);
+}
+
+.step-txt {
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+.step-txt strong {
+  display: block;
+  font-size: 12px;
+  color: var(--text-2);
+  font-weight: 500;
+  margin-bottom: 1px;
+}
+
+/* PASSWORD STRENGTH BAR */
+.pw-strength {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 7px;
+}
+
+.pw-bars {
+  display: flex;
+  gap: 4px;
+}
+
+.pw-bar {
+  width: 36px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--border);
+  transition: var(--transition);
+}
+
+/* Bar colors per strength level */
+.bar-weak   { background: var(--coral); }
+.bar-fair   { background: var(--amber); }
+.bar-good   { background: var(--blue);  }
+.bar-strong { background: var(--teal);  }
+
+.pw-label {
+  font-size: 11px;
+  color: var(--text-4);
+  transition: var(--transition-fast);
+}
+
+/* PASSWORD MATCH MESSAGE */
+.match-msg {
+  display: block;
+  font-size: 11px;
+  margin-top: 5px;
+  transition: var(--transition-fast);
+}
+
+/* RESPONSIVE — hide steps on mobile */
+@media (max-width: 768px) {
+  .reg-steps {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .pw-bar {
+    width: 26px;
+  }
+}
